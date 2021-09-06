@@ -1,13 +1,12 @@
 import React from 'react';
 import FriendsList from './components/FriendsList/FriendsList';
-import Profile from './components/Profile';
-import Statistic from './components/Statistic';
-import Transactions from './components/Transactions';
+import Profile from './components/Profile/Profile';
+import Statistic from './components/Statistic/Statistic';
+import Transactions from './components/Transactions/Transactions';
 import data from './data.json';
 
 
 const App = () => {
-console.log(data)
     return (
         <div>
             <h1>

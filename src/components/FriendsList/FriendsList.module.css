@@ -1,0 +1,44 @@
+.friends {
+  width: 400px;
+  margin: auto;
+  background: rgb(226, 253, 255);
+}
+.title {
+  text-align: center;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  background: rgb(170, 214, 255);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.status {
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.online {
+  composes: status;
+  background: chartreuse;
+}
+
+.offline {
+  background: crimson;
+  composes: status;
+}
+
+.avatar {
+  margin-right: 10px;
+}

@@ -17,7 +17,7 @@
           { "id": "id-4", "label": ".psd", "percentage": 47 },
           { "id": "id-5", "label": ".pdf", "percentage": 10 }
         ],
-        "friends": [
+      "friends": [
             {
               "avatar": "https://www.flaticon.com/svg/static/icons/svg/763/763704.svg",
               "name": "Mango",

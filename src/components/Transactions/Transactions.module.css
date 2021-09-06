@@ -1,0 +1,47 @@
+@value main-bg-color from '../../vars/colors.module.css';
+
+.transactionHistory {
+  width: 600px;
+  margin: 50px auto;
+  background: rgb(86, 86, 255);
+  border-collapse: collapse;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.transactionHistory thead {
+  color: white;
+}
+
+.transactionHistory th {
+  padding: 5px;
+  border-left: 1px solid white;
+}
+
+.transactionHistory th:first-of-type {
+  border-left: 0;
+}
+
+.transactionHistory td {
+  border-left: 1px solid grey;
+}
+
+.transactionHistory td:nth-of-type(4n + 1) {
+  border-left: none;
+}
+
+.transactionHistory tbody tr:nth-child(2n + 1) {
+  background: rgb(158, 158, 247);
+}
+
+.transactionHistory tbody tr:nth-child(2n) {
+  background: rgb(210, 210, 255);
+}
+
+.transactionHistory td {
+  padding: 10px;
+}
+
+.transactionHistory tbody tr:last-child {
+  background: rgba(210, 210, 255, 0);
+}
