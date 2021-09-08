@@ -170,6 +170,22 @@
               "amount": "405.45",
               "currency": "MDL"
             }
-          ]
+          ],
+      "colors": [
+        {"label": "Bisque", "color": "#FFE4C4"},
+        {"label": "Aquamarine", "color": "#7FFFD4"},
+        {"label": "Azure", "color": "#F0FFFF"},
+        {"label": "Chartreuse", "color": "#7FFF00"},
+        {"label": "Coral", "color": "#FF7F50"},
+        {"label": "DarkSeaGreen", "color": "#8FBC8F"},
+        {"label": "DarkMagenta", "color": "#8B008B"}
+      ],
+      "todos": [
+        { "title": "Test todo", "id": 1, "completed": true},
+        { "title": "Test2 todo", "id": 2, "completed": false},
+        { "title": "Test3 todo", "id": 3, "completed": false},
+        { "title": "Test4 todo", "id": 4, "completed": false},
+        { "title": "Test5 todo", "id": 5, "completed": true}
+        ]
       
 }

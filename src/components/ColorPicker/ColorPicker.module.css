@@ -1,0 +1,28 @@
+.colorPicker {
+  max-width: 800px;
+  margin: auto;
+  background: black;
+  padding: 20px;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.title {
+  text-align: center;
+}
+
+.list {
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.item {
+  width: 70px;
+  height: 70px;
+}
+
+.selected {
+  box-shadow: 0 0 2px 5px white;
+}
