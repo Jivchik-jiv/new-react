@@ -1,0 +1,40 @@
+.checkboxesBlock {
+  width: 500px;
+  margin: 30px auto;
+  background: black;
+  color: white;
+  padding: 20px 0;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+}
+
+.item label {
+  width: 300px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.name {
+  width: 60%;
+}
+
+.price {
+  width: 10%;
+  text-align: right;
+}
+
+.checkboxesBlock h3 {
+  text-align: center;
+}
+
+.total {
+  text-align: center;
+  font-size: 2em;
+}

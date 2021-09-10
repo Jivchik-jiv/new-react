@@ -16,15 +16,26 @@
   padding: 10px;
   width: 400px;
   display: flex;
-  justify-content: space-between;
   margin: 10px auto;
+  align-items: center;
 }
 
 .item p {
-  margin-top: 0;
+  margin: 0 10px;
+  width: 70%;
+  text-align: left;
+  overflow: hidden;
 }
 
 .completed {
   background: rgb(65, 248, 19);
   color: black;
+}
+
+.completed p {
+  text-decoration: line-through;
+}
+
+.vorning {
+  color: red;
 }

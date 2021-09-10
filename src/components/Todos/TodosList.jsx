@@ -2,22 +2,25 @@ import React from "react";
 import styles from "./Todos.module.css";
 import cx from 'classnames'
 
-class TodosList extends React.Component {
+const TodosList = ({todos, toggleCompleted, deleteTodo}) => {
 
-    makeOptionClasses = (completed)=> {
+   const makeOptionClasses = (completed)=> {
         return cx({
             [styles.item]: true,
             [styles.completed]: completed
         })
     }
-  render() {
+
+  
+  
     return (
       <ul className={styles.list}>
-        {this.props.todos.map((todo) => {
+        {todos.map((todo) => {
           return (
-            <li className={this.makeOptionClasses(todo.completed)} key={todo.id}>
-              <p>{todo.title}</p>
-              <button type="button" className={styles.button}>
+            <li className={makeOptionClasses(todo.completed)} key={todo.id}>
+                <input type="checkbox" checked = {todo.completed} onChange = {()=>toggleCompleted(todo.id)}/>
+                <p>{todo.title}</p>
+                <button type="button" className={styles.button} onClick = {()=>deleteTodo(todo.id)}>
                 Delete
               </button>
             </li>
@@ -26,6 +29,6 @@ class TodosList extends React.Component {
       </ul>
     );
   }
-}
+
 
 export default TodosList;

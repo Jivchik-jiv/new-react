@@ -1,4 +1,5 @@
 import React from 'react';
+import Checkboxes from './components/Checkboxes/Checkboxes';
 import ColorPicker from './components/ColorPicker';
 import Counter from './components/Counter';
 import FriendsList from './components/FriendsList';
@@ -16,6 +17,7 @@ const App = () => {
             <h1>
                 Main page
             </h1>
+            <Checkboxes/>
             <Todos todos = {data.todos}/>
             <ColorPicker/>
             <Counter/>
