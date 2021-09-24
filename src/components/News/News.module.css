@@ -1,0 +1,38 @@
+.newsBox {
+  width: 700px;
+  margin: 30px auto;
+  background: black;
+  color: white;
+  padding: 20px 0;
+}
+
+.title {
+  text-align: center;
+}
+
+.item {
+  margin: 10px;
+}
+
+.link {
+  color: wheat;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: whitesmoke;
+}
+
+.form {
+  text-align: center;
+}
+
+.btn {
+  display: block;
+  min-width: 100px;
+  margin: 10px auto;
+}
+
+.loader {
+  text-align: center;
+}

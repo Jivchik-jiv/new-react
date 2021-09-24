@@ -1,0 +1,27 @@
+.phonebook {
+  width: 500px;
+  margin: 30px auto;
+  background: black;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+.filter {
+  margin: 10px;
+  border: 1px solid white;
+  padding: 10px;
+}
+
+.filter p {
+  margin: 0;
+}
+
+.additor {
+  color: black;
+  text-align: center;
+}
+
+.btn {
+  display: block;
+  margin: 10px auto;
+}

@@ -11,20 +11,16 @@ const itemsList = [
 ]
 
 
+
 class Checkboxes extends React.Component {
    state = {
-        checkedStatus: [],
+        checkedStatus: new Array(itemsList.length).fill(false),
         totalPrice: 0
     }
 
-   componentDidMount() {
-       let updatedCheckedStatus = new Array(itemsList.length).fill(false);
-       this.setState({checkedStatus: updatedCheckedStatus});
-   }
 
    handleChange = (indexToChange) => {
         let updatedCheckedStatus = this.state.checkedStatus.map((item, index)=> index === indexToChange? !item : item);
-
         let totalPrice = updatedCheckedStatus.reduce((total, status, index)=> {
             if(status) {
                 return total +  itemsList[index].price
