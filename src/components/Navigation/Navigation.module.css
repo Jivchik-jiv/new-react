@@ -1,0 +1,26 @@
+.nav {
+  background: black;
+}
+
+.list {
+  margin-top: 0;
+  list-style: none;
+  display: flex;
+  padding: 20px;
+}
+
+.item {
+  margin-left: 10px;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+}
+.link:hover {
+  color: grey;
+}
+
+.active {
+  color: red;
+}

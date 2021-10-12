@@ -1,6 +1,10 @@
 import axios from "axios";
 
-// API key = a51c0bea7bca4770a81532058948c588
+// API key news = a51c0bea7bca4770a81532058948c588
+
+// API key images = 21872021-de688e9cfaf53d124bb8f01aa
+
+const imagesAPIKey = "21872021-de688e9cfaf53d124bb8f01aa";
 
 const instanceArticles = axios.create({
   headers: {
@@ -17,5 +21,15 @@ export const newsApi = {
       .then((response) => {
         return response.data.articles;
       });
+  },
+};
+
+export const imagesAPI = {
+  fetchImages(query = "ocean", page = 1) {
+    return axios
+      .get(
+        `https://pixabay.com/api/?key=${imagesAPIKey}&q=${query}&per_page=8&page=${page}`
+      )
+      .then((responce) => responce.data.hits);
   },
 };

@@ -1,0 +1,11 @@
+.active {
+  color: orange;
+}
+
+.bookView {
+  max-width: 500px;
+}
+
+.img {
+  width: 300px;
+}
