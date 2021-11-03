@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "./Todos.module.css";
-import TodosList from "./TodosList";
-import {nanoid} from 'nanoid';
+import TodosList from "./TodosList.container";
+import { connect } from "react-redux";
+import { addTodo, fetchTodos } from "../../redux/todos/todos-operations";
+
 
 const TodosStatistic = (props) => {
   return (
@@ -29,6 +31,7 @@ class TodoEditor extends React.Component {
     if (!this.state.value.length) {
       this.setState({showVorning: true})
     }else {
+    
       this.props.addTodo(this.state.value);
       this.setState({value: '', showVorning: false})
 
@@ -53,56 +56,37 @@ class TodoEditor extends React.Component {
 
 class Todos extends React.Component {
 
-  state = {
-    todos: this.props.todos
-  }
-
-  toggleCompleted = (itemId)=> {
-    this.setState(prevState=>( {
-    todos: prevState.todos.map(todo=> todo.id === itemId ? {
-        ...todo,
-          completed: !todo.completed
-        } : todo )
-      
-    }))
-  }
-
-  deleteTodo = (itemId)=> {
-    this.setState(prevState => ({
-        todos: prevState.todos.filter((todo)=>todo.id!==itemId)
-    }))
-  }
-
-  addTodo = (text)=> {
-
-    const newTodo = {
-      title: text,
-      id: nanoid(5), 
-      completed: false
+ 
+    componentDidMount(){
+        this.props.fetchTodos()
     }
 
-    this.setState(prevState=>({
-      todos: [
-        newTodo,
-        ...prevState.todos
-        
-      ]
-    }))
-  }
+  
 
-
-  render() {
-      const todos = this.state.todos;
-      const completedTodos = todos.reduce((total, todo)=> todo.completed? total+1:total, 0)
-    return (
-      <div className={styles.todos}>
-        <TodoEditor addTodo = {this.addTodo}/>
-        <h1 className={styles.title}> Todos</h1>
-        <TodosStatistic total={todos.length} completedTodos={completedTodos}/>
-        <TodosList todos={todos} toggleCompleted = {this.toggleCompleted} deleteTodo= {this.deleteTodo}/>
-      </div>
-    );
-  }
+      render (){
+        const {addTodo, todos}= this.props;
+        const reversedTodos = [...todos].reverse();
+        const  completedTodos = todos.reduce((total, todo)=> todo.completed? total+1:total, 0);
+        return (
+          <div className={styles.todos}>
+            <TodoEditor addTodo = {addTodo}/>
+            <h1 className={styles.title}> Todos</h1>
+            <TodosStatistic total={todos.length} completedTodos={completedTodos}/>
+           {todos&& <TodosList todos={reversedTodos}/>}
+          </div>
+        );
+      }
+    
+  
 }
 
-export default Todos;
+const mapDispatchToProps =(dispatch)=>({
+  fetchTodos: ()=> dispatch(fetchTodos()),
+  addTodo: (value)=>dispatch(addTodo(value))
+})
+
+const mapStateToProps=(state)=>({
+  todos: state.todos
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todos);

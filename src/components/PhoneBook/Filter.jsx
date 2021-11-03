@@ -1,13 +1,12 @@
 import React from 'react';
 import styles from './PhoneBook.module.css';
 
-const Filter = ({handleFilter, filter}) => {
-
+const Filter = ({changeFilter, filter}) => {
     return (
         <div className= {styles.filter}>
                 <label>
                     <p>Filter</p>
-                <input type="text" value={filter} onChange={handleFilter}/>
+                <input type="text" value={filter} onChange={changeFilter}/>
                 </label>
                
             </div>

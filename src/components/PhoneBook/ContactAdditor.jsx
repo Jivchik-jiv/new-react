@@ -14,9 +14,16 @@ class ContactAdditor extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        let {name, number} = this.state;
-        this.props.addContact(name, number);
-        this.setState({name:"", number: ""})
+        let isExists = this.props.contactsNames.includes(this.state.name.toLowerCase());
+        if(!isExists){
+            this.props.addContact(this.state);
+            this.setState({name:"", number: ""});
+            this.props.toggleModal()
+            return
+        }
+
+        alert("This contact already exists!")
+        
     }
 
 

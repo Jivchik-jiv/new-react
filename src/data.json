@@ -3,7 +3,7 @@
         "name": "Jacques Gluke",
         "tag": "jgluke",
         "location": "Ocho Rios, Jamaica",
-        "avatar": "https://www.flaticon.com/svg/static/icons/svg/3784/3784184.svg",
+        "avatar": "https://img.icons8.com/offices/160/000000/user.png",
         "stats": {
           "followers": 5603,
           "views": 4827,
@@ -19,31 +19,31 @@
         ],
       "friends": [
             {
-              "avatar": "https://www.flaticon.com/svg/static/icons/svg/763/763704.svg",
+              "avatar": "https://img.icons8.com/offices/80/000000/user.png",
               "name": "Mango",
               "isOnline": true,
               "id": 1812
             },
             {
-              "avatar": "https://www.flaticon.com/svg/static/icons/svg/1998/1998671.svg",
+              "avatar": "https://img.icons8.com/offices/80/000000/user.png",
               "name": "Kiwi",
               "isOnline": false,
               "id": 1137
             },
             {
-              "avatar": "https://www.flaticon.com/svg/static/icons/svg/1623/1623681.svg",
+              "avatar": "https://img.icons8.com/offices/80/000000/user.png",
               "name": "Ajax",
               "isOnline": true,
               "id": 1213
             },
             {
-              "avatar": "https://www.flaticon.com/svg/static/icons/svg/2977/2977285.svg",
+              "avatar": "https://img.icons8.com/offices/80/000000/user.png",
               "name": "Jay",
               "isOnline": true,
               "id": 1714
             },
             {
-              "avatar": "https://www.flaticon.com/svg/static/icons/svg/1998/1998749.svg",
+              "avatar": "https://img.icons8.com/offices/80/000000/user.png",
               "name": "Poly",
               "isOnline": false,
               "id": 1284

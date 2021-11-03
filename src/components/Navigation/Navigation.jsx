@@ -32,6 +32,12 @@ const Navigation =()=> {
                     className ={styles.link} 
                     activeClassName={styles.active}>Booksshelf</NavLink>
                 </li>
+                <li className={styles.item}>
+                    <NavLink 
+                    to="/nasa"
+                    className ={styles.link} 
+                    activeClassName={styles.active}>Nasa</NavLink>
+                </li>
             </ul>
         </nav>
     )

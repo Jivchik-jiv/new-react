@@ -9,3 +9,20 @@
 .img {
   width: 300px;
 }
+
+.listPreview {
+  list-style: none;
+  display: flex;
+  max-width: 70%;
+  margin: auto;
+  flex-wrap: wrap;
+}
+
+.itemPreview {
+  margin-right: 10px;
+  width: 18%;
+}
+
+.imgPreview {
+  width: 90%;
+}

@@ -2,7 +2,6 @@ import React from 'react';
 
 
 const ContactsList = ({contacts, deleteContact}) => {
-
     return(
         <div>
             <h2>Contacts</h2>
@@ -20,5 +19,6 @@ const ContactsList = ({contacts, deleteContact}) => {
         </div>
     )
 }
+
 
 export default ContactsList;

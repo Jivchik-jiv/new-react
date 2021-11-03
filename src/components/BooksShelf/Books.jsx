@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { NavLink} from "react-router-dom";
+import BooksList from "./BooksList";
 
 
 class Books extends React.Component {
@@ -34,15 +34,7 @@ class Books extends React.Component {
         <h1>Books</h1>
         <ul>
           {this.state.books &&
-            this.state.books.map((book) => {
-              return (
-                <li key={book.id}>
-                  <NavLink to={`/booksshelf/books/${book.id}`} key={book.id}>
-                    {book.name}
-                  </NavLink>
-                </li>
-              );
-            })}
+           <BooksList books={this.state.books}/>}
         </ul>
       </div>
     );

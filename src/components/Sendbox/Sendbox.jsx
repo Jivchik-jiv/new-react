@@ -21,7 +21,7 @@ return (
                 <PhoneBook/>
                 <Feedback/>
                 <Checkboxes/>
-                <Todos todos = {data.todos}/>
+                <Todos/>
                 <ColorPicker/>
                 <Counter/>
                 <Profile {...data.user}/>
