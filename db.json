@@ -7,29 +7,19 @@
   ],
   "contacts": [
     {
-      "name": "Obo Marly",
-      "number": "123-23-77",
+      "name": "Bob Marley",
+      "number": "111-111-111",
       "id": 1
     },
     {
-      "name": "Garly Quine",
-      "number": "665-14-26",
+      "name": "James Bond",
+      "number": "222-222-222",
       "id": 2
     },
     {
-      "name": "Chaply Charlin",
-      "number": "545-24-98",
+      "name": "Frodo Tobins",
+      "number": "333-333-333",
       "id": 3
-    },
-    {
-      "name": "Gooro Bum",
-      "number": "444-22-33",
-      "id": 4
-    },
-    {
-      "name": "toDelete",
-      "number": "123556",
-      "id": 5
     }
   ],
   "books": [
@@ -149,7 +139,7 @@
     },
     {
       "title": "55555",
-      "completed": true,
+      "completed": false,
       "id": 5
     }
   ]

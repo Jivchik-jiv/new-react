@@ -14,12 +14,21 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import phonebookReducer from "./phonebook/phonebook-reducer";
+import { newsReducer } from "./news/news-reducers";
+import { imageGalleryReducer } from "./image-gallery/imageGallery-reducers";
+import { nasaReducer } from "./nasa/nasa-reducers";
+import auth from "./auth/auth-reducers";
+import { contactsReducer } from "./personalContacts/personalContacts-reducers";
+import createSagaMiddleware from "@redux-saga/core";
+import { fetchNewsWatcher } from "./news/sagas";
+
+const sagaMiddleWare = createSagaMiddleware();
 
 // Записываем данные из store (из указанного далее редьюсера), в локальное хранилище.
-const counterPersistConfig = {
-  key: "Counter",
+const authPersistConfig = {
+  key: "token",
   storage,
-  blacklist: ["step"],
+  whitelist: ["token"],
 };
 
 const middlewareSettings = {
@@ -30,13 +39,20 @@ const middlewareSettings = {
 
 export const store = configureStore({
   reducer: {
-    counter: persistReducer(counterPersistConfig, counterReducer),
+    counter: counterReducer,
     todos: todosReducer,
     phonebook: phonebookReducer,
+    news: newsReducer,
+    imageGallery: imageGalleryReducer,
+    nasa: nasaReducer,
+    auth: persistReducer(authPersistConfig, auth),
+    personalContacts: contactsReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware(middlewareSettings).concat(logger),
+    getDefaultMiddleware(middlewareSettings).concat(sagaMiddleWare, logger),
   devTools: process.env.NODE_ENV === "development",
 });
+
+sagaMiddleWare.run(fetchNewsWatcher);
 
 export const persistor = persistStore(store);

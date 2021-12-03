@@ -18,4 +18,5 @@ const Images = ({images, onImageClick}) => {
     
 }
 
+
 export default Images;

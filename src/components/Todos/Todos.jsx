@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Todos.module.css";
 import TodosList from "./TodosList.container";
 import { connect } from "react-redux";
 import { addTodo, fetchTodos } from "../../redux/todos/todos-operations";
+import { getTodos } from "../../redux/todos/todos-selectors";
 
 
 const TodosStatistic = (props) => {
@@ -14,71 +15,58 @@ const TodosStatistic = (props) => {
   );
 };
 
-class TodoEditor extends React.Component {
-  state = {
-    value: '',
-    showVorning: false
-  }
+const TodoEditor =({addTodo})=>{
+  const [value, setValue]=useState("");
 
-  handleChange = (e) => {
+  const handleChange=(e)=>{
+    setValue(e.target.value);
+  };
 
-    this.setState({value: e.target.value})
-  }
+  const [showVorning, setShowVorning]=useState(false);
 
-  handleSubmit =(e)=> {
+  const handleSubmit=(e)=>{
     e.preventDefault();
-
-    if (!this.state.value.length) {
-      this.setState({showVorning: true})
+    if (!value.length) {
+      setShowVorning(true)
     }else {
     
-      this.props.addTodo(this.state.value);
-      this.setState({value: '', showVorning: false})
-
+      addTodo(value);
+      setShowVorning(false)
+      setValue('')
     }
+  };
 
-   
-  }
-
-  render () {
-    return (
-      <form onSubmit = {this.handleSubmit}>
-        <label>
-          <p>New todo</p>
-          <input type="text" value = {this.state.value} onChange = {this.handleChange}/>
-        </label>
-        <button type = 'submit'>Add todo</button>
-        {this.state.showVorning && <p className = {styles.vorning}>You have to add some data to add todo card!</p>}
-      </form>
-    )
-  }
+  return (
+    <form onSubmit = {handleSubmit}>
+      <label>
+        <p>New todo</p>
+        <input type="text" value = {value} onChange = {handleChange}/>
+      </label>
+      <button type = 'submit'>Add todo</button>
+      {showVorning && <p className = {styles.vorning}>You have to add some data to add todo card!</p>}
+    </form>
+  )
 }
 
-class Todos extends React.Component {
+const Todos=({todos, fetchTodos, addTodo})=>{
 
- 
-    componentDidMount(){
-        this.props.fetchTodos()
-    }
+  useEffect(()=>{
+    fetchTodos()
+  }, [fetchTodos])
 
-  
+  const reversedTodos = [...todos].reverse();
+  const  completedTodos = todos.reduce((total, todo)=> todo.completed? total+1:total, 0);
 
-      render (){
-        const {addTodo, todos}= this.props;
-        const reversedTodos = [...todos].reverse();
-        const  completedTodos = todos.reduce((total, todo)=> todo.completed? total+1:total, 0);
-        return (
-          <div className={styles.todos}>
-            <TodoEditor addTodo = {addTodo}/>
-            <h1 className={styles.title}> Todos</h1>
-            <TodosStatistic total={todos.length} completedTodos={completedTodos}/>
-           {todos&& <TodosList todos={reversedTodos}/>}
-          </div>
-        );
-      }
-    
-  
+  return (
+    <div className={styles.todos}>
+      <TodoEditor addTodo = {addTodo}/>
+      <h1 className={styles.title}> Todos</h1>
+      <TodosStatistic total={todos.length} completedTodos={completedTodos}/>
+     {todos&& <TodosList todos={reversedTodos}/>}
+    </div>
+  );
 }
+
 
 const mapDispatchToProps =(dispatch)=>({
   fetchTodos: ()=> dispatch(fetchTodos()),
@@ -86,7 +74,7 @@ const mapDispatchToProps =(dispatch)=>({
 })
 
 const mapStateToProps=(state)=>({
-  todos: state.todos
+  todos: getTodos(state)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todos);

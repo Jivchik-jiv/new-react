@@ -1,0 +1,76 @@
+.personalNotes {
+  max-width: 900px;
+  margin: auto;
+  background-color: black;
+  color: white;
+  min-height: 400px;
+}
+
+.title {
+  text-align: center;
+}
+
+.navWrap {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid white;
+  padding: 10px 5px;
+  margin: 5px;
+}
+
+.nav {
+  color: white;
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+.nav:last-child {
+  margin-right: 0;
+}
+
+.nav:hover {
+  color: rgb(115, 176, 255);
+}
+
+.active {
+  color: aqua;
+}
+
+.avatar {
+  width: 30px;
+  margin-bottom: -10px;
+  margin-right: 5px;
+}
+
+.userGreeting {
+  margin-right: 5px;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.form {
+  width: 30%;
+  margin: auto;
+}
+
+.btnForm {
+  margin: auto;
+  display: block;
+  background-color: white;
+  border: none;
+  padding: 5px 10px;
+  box-shadow: 0 0 0 1px white;
+}
+
+.btnForm:active {
+  box-shadow: none;
+}
+
+.btnForm:hover {
+  background-color: rgb(6, 7, 122);
+  color: white;
+}

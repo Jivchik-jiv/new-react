@@ -1,44 +1,53 @@
 import React from "react";
-import { nasaApi } from "../../api/nasa-api";
 import Loader from 'react-loader-spinner';
 import ImagesList from "./ImagesList";
+import { connect } from "react-redux";
+import { selectNasaSearchedImages, selectNasaTopImages } from "../../redux/nasa/nasa-selectors";
+import { fetchNasaImages } from "../../redux/nasa/nasa-operations";
 
 class ImagesListWrap extends React.Component {
   state = {
-    images: [],
     isLoading: false,
   };
 
   componentDidMount() {
-    if(this.props.images){
-      this.setState({images: this.props.images})
-    }else{
-      this.setState({isLoading: true})
-      nasaApi.fetchImages().then((images) => {
-        this.setState({ images,  isLoading: false});
-      });
+    if(this.props.topImages.length===0&&!this.props.isSearched){
+      this.setState({isLoading:true})
+      this.props.fetchTopImages()
     }
+    
+    
   }
 
   componentDidUpdate(prevProps){
-    if(prevProps.images){
-      if(prevProps.images.length!==this.props.images.length){
-        this.setState({images: this.props.images})
-      }
-    }
+    if(prevProps.topImages!==this.props.topImages){
+      
+        this.setState({isLoading: false})
+    } 
   }
 
   render() {
-    let {images, isLoading}=this.state;
+    let { isLoading}=this.state;
+    let {topImages, isSearched, searchedImages}=this.props;
+    let images=isSearched?searchedImages:topImages;
     return (
       <div>
         <h2>{this.props.title || "Top images"}</h2>
         {isLoading&&<Loader type="Circles" color="#45009e"/>}
-        {images.length>0&&<ImagesList images={images}/>}
+        {<ImagesList images={images}/>}
       </div>
     );
   }
 }
 
-export default ImagesListWrap;
+const mapStateToProps=(state)=>({
+  topImages:selectNasaTopImages(state),
+  searchedImages: selectNasaSearchedImages(state)
+});
+
+const mapDispatchToProps=(dispatch)=>({
+  fetchTopImages: ()=>dispatch(fetchNasaImages())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImagesListWrap);
 

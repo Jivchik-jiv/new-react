@@ -15,7 +15,7 @@ class Nasa extends React.Component {
         <Navigation />
         <Switch>
           <Route path={routes.nasa.imageView} component={ImageWrap} />
-          <Route path={routes.nasa.images} component={ImagesListWrap} />
+          <Route path={routes.nasa.images} render={()=><ImagesListWrap title="Top images"/>} />
           <Route path={routes.nasa.search} component={ImageSearch} />
         </Switch>
       </div>

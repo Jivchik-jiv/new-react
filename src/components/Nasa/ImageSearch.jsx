@@ -1,13 +1,15 @@
 import React from "react";
-import { nasaApi } from "../../api/nasa-api";
 import ImagesListWrap from "./ImagesListWrap";
 import styles from "./Nasa.module.css";
 import Loader from "react-loader-spinner";
 import SearchForm from "./SearchForm";
+import { connect } from "react-redux";
+import { fetchNasaImages } from "../../redux/nasa/nasa-operations";
+import { selectNasaSearchedImages } from "../../redux/nasa/nasa-selectors";
+import { clearSearchedImages } from "../../redux/nasa/nasa-actions";
 
 class ImageSearch extends React.Component {
   state = {
-    images: null,
     isLoading: false,
     startDate: "",
     endDate: "",
@@ -18,19 +20,37 @@ class ImageSearch extends React.Component {
       let dates = this.getDates(this.props.location.pathname);
       this.setState({
         isLoading: true,
-        images: null,
-        startDate: dates[0],
-        endDate: dates[1],
+        startDate: dates.start,
+        endDate: dates.end,
       });
-      nasaApi.fetchImages(dates).then((result) => {
-        this.setState({ images: result, isLoading: false });
-      });
+      
+      this.props.fetchImages(dates)
+
     }
   }
 
+  componentDidUpdate(prevProps){
+    let isPrevEpmpty=prevProps.searchedImages.length===0;
+    let isThisFull=this.props.searchedImages.length>0;
+    if(isPrevEpmpty&&isThisFull){
+      this.setState({isLoading: false})
+    }
+
+    if (this.props.match.isExact&&isThisFull){
+      this.props.clearImages();
+      this.setState({startDate:"", endDate:""})
+    }
+  }
+
+  componentWillUnmount(){
+    this.props.clearImages()
+  }
+
+  
+
   getDates = (str) => {
     let datesArr = str.match(/(\d{4}-\d\d-\d\d)_(\d{4}-\d\d-\d\d)/);
-    return [datesArr[1], datesArr[2]];
+    return {start: datesArr[1], end: datesArr[2]};
   };
 
   handleDateChange = (e) => {
@@ -47,15 +67,15 @@ class ImageSearch extends React.Component {
   };
 
   handleSubmit = () => {
-    this.setState({ isLoading: true, images: null });
+    this.setState({isLoading: true});
+    this.props.clearImages()
     this.props.history.push(
-      `${this.props.location.pathname}/${this.state.startDate}_${this.state.endDate}`
+      `${this.props.match.path}/${this.state.startDate}_${this.state.endDate}`
     );
-    nasaApi
-      .fetchImages([this.state.startDate, this.state.endDate])
-      .then((result) => {
-        this.setState({ images: result, isLoading: false });
-      });
+
+    let dates={start: this.state.startDate, end: this.state.endDate};
+
+    this.props.fetchImages(dates)
   };
 
   render() {
@@ -68,12 +88,21 @@ class ImageSearch extends React.Component {
           endDate={this.state.endDate}
         />
         {this.state.isLoading && <Loader type="Circles" color="#45009e" />}
-        {this.state.images && (
-          <ImagesListWrap images={this.state.images} {...this.props} />
+        {this.props.searchedImages.length>0 && (
+          <ImagesListWrap {...this.props} title="Images of the selected days" isSearched={true}/>
         )}
       </div>
     );
   }
 }
 
-export default ImageSearch;
+const mapDispatchToProps=(dispatch)=>({
+  fetchImages: (dates)=>dispatch(fetchNasaImages(dates)),
+  clearImages: ()=>dispatch(clearSearchedImages())
+})
+
+const mapStateToProps=(state)=>({
+  searchedImages: selectNasaSearchedImages(state)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImageSearch);

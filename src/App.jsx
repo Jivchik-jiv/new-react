@@ -3,6 +3,7 @@ import { Redirect, Route, Switch} from 'react-router-dom'
 import Homepage from './components/Homepage';
 import Navigation from './components/Navigation';
 import NotFound from './components/NotFound';
+import PersonalContacts from './components/PersonalContacts/PersonalContacts';
 import routes from './routes';
 
 
@@ -23,6 +24,7 @@ const App = () => {
                 <Route path={routes.sendbox} component ={Sendbox}/>
                 <Route path={routes.booksShelf.main} component ={BooksShelf}/>
                 <Route path={routes.nasa.main} component={Nasa}/>
+                <Route path={routes.personalContacts.main} component ={PersonalContacts}/>
                 <Route  component ={NotFound}/>
                 <Redirect from="/redirect" to="/" />
                

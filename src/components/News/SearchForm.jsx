@@ -3,26 +3,27 @@ import styles from './News.module.css';
 
 class SearchForm extends React.Component {
     state ={
-        input: ""
+        query: "",
     }
 
     handleChange = (e) =>{
-        this.setState({input: e.target.value})
+        this.setState({query: e.target.value})
     }
 
-    handleSubmit = (e) =>{
+    onSubmit = (e) =>{
         e.preventDefault();
-        this.props.onChangeQuery(this.state.input)
+            this.props.handleSubmit(this.state.query)  
     }
 
     render() { 
         return <div>
-            <form className ={styles.form} onSubmit = {this.handleSubmit}>
-                <input type="text" onChange = {this.handleChange} value = {this.state.input}/>
+            <form className ={styles.form} onSubmit = {this.onSubmit}>
+                <input type="text" onChange = {this.handleChange} value = {this.state.input} required/>
                 <button className = {styles.btn}>Search</button>
             </form>
         </div>;
     }
 }
  
+
 export default SearchForm;

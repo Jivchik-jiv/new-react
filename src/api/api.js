@@ -13,7 +13,7 @@ const instanceArticles = axios.create({
 });
 
 export const newsApi = {
-  fetchNews(query, page = 1) {
+  fetchNews({ query, page = 1 }) {
     return instanceArticles
       .get(
         `https://newsapi.org/v2/everything?q=${query}&pageSize=5&page=${page}`
@@ -25,7 +25,7 @@ export const newsApi = {
 };
 
 export const imagesAPI = {
-  fetchImages(query = "ocean", page = 1) {
+  fetchImages({ query, page }) {
     return axios
       .get(
         `https://pixabay.com/api/?key=${imagesAPIKey}&q=${query}&per_page=8&page=${page}`

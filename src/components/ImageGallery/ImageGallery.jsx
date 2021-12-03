@@ -1,15 +1,17 @@
 import React from "react";
 import styles from "./ImageGallery.module.css";
 import Images from "./Images";
-import { imagesAPI } from "../../api/api";
 import Searchbar from "./Searchbar";
 import Button from "./Button";
 import GalleryModal from "./GalleryModal";
 import Loader from "react-loader-spinner";
+import { connect } from "react-redux";
+import {fetchImages } from "../../redux/image-gallery/imageGallery-operations";
+import { selectImages } from "../../redux/image-gallery/imageGallery-selectors";
+
 
 class ImageGallery extends React.Component {
   state = {
-    images: [],
     query: "",
     currentPage: 1,
     showModal: false,
@@ -18,33 +20,32 @@ class ImageGallery extends React.Component {
   };
 
   componentDidMount() {
-    imagesAPI.fetchImages().then((images) => {
-      this.setState({ images });
-    });
+    this.setState({isLoading: true});
+    this.props.fetchImages();
+  }
+
+  componentDidUpdate(prevProps){
+    if(prevProps.images!==this.props.images){
+      this.setState({isLoading: false})
+    }
   }
 
   onSearchSubmit = (query) => {
-    imagesAPI.fetchImages(query).then((images) => {
-      this.setState({ images, query, currentPage: 1 });
-    });
+    this.props.fetchImages({query, page:1});
+    this.setState({currentPage: 1, query})
   };
 
   getMoreImages = () => {
     let { query, currentPage } = this.state;
+    let options= {query, page:currentPage+1};
     this.setState({isLoading: true});
-    imagesAPI.fetchImages(query, currentPage + 1).then((images) => {
-      this.setState((prevState) => {
-        return {
-          images: [...prevState.images, ...images],
-          currentPage: prevState.currentPage + 1,
-          isLoading: false
-        };
-      });
-    });
+    this.props.fetchImages(options);
+    this.setState(state=>({currentPage: state.currentPage+1}))
   };
 
   onImageClick = (url) => {
     this.setState({ bigImageUrl: url, showModal: true });
+    
   };
 
   hideModal = () => {
@@ -55,7 +56,7 @@ class ImageGallery extends React.Component {
     return (
       <div className={styles.gallery}>
         <Searchbar onSearchSubmit={this.onSearchSubmit} />
-        <Images images={this.state.images} onImageClick={this.onImageClick} />
+        <Images onImageClick={this.onImageClick} images={this.props.images}/>
         {this.state.isLoading?<Loader
         style={{textAlign:"center"}}
           type="ThreeDots"
@@ -63,7 +64,9 @@ class ImageGallery extends React.Component {
           height={100}
           width={100}
         />
-    :<Button handleClick={this.getMoreImages} />}
+    :this.state.query
+    ?<Button handleClick={this.getMoreImages} />
+  :null}
         
         {this.state.showModal && (
           <GalleryModal
@@ -76,4 +79,12 @@ class ImageGallery extends React.Component {
   }
 }
 
-export default ImageGallery;
+const mapDispatchToProps=(dispatch)=> ({
+  fetchImages: (query)=>dispatch(fetchImages(query))
+})
+
+const mapStatetoProps =(state)=> ({
+  images: selectImages(state)
+})
+
+export default connect(mapStatetoProps, mapDispatchToProps)(ImageGallery);

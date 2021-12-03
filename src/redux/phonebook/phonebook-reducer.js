@@ -1,10 +1,16 @@
 import { combineReducers, createReducer } from "@reduxjs/toolkit";
-import { addContact, changeFilter, deleteContact } from "./phonebook-actions";
+import {
+  addContactSucces,
+  changeFilter,
+  deleteContactSucces,
+  fetchContactsSuccess,
+} from "./phonebook-actions";
 
 const contactsReducer = createReducer([], {
-  [addContact]: (state, action) => [{ ...action.payload }, ...state],
-  [deleteContact]: (state, action) =>
+  [addContactSucces]: (state, action) => [{ ...action.payload }, ...state],
+  [deleteContactSucces]: (state, action) =>
     state.filter((contact) => contact.id !== action.payload),
+  [fetchContactsSuccess]: (_, action) => action.payload.reverse(),
 });
 
 const filterReducer = createReducer("", {

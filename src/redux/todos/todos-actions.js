@@ -1,13 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
 
-// const initialState = [
-//     { title: "Test1 todo", id: 1, completed: true},
-//     { title: "Test2 todo", id: 2, completed: false},
-//     { title: "Test3 todo", id: 3, completed: false},
-//     { title: "Test4 todo", id: 4, completed: false},
-//     { title: "Test5 todo", id: 5, completed: true}
-// ];
-
 export const fetchTodosRequest = createAction("todos/fetchRequest");
 export const fetchTodosSuccess = createAction("todos/fetchSuccess");
 export const fetchTodosError = createAction("todos/fetchError");

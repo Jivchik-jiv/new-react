@@ -7,9 +7,6 @@ const mapDispatchToProps = (dispatch)=>({
   deleteTodo: (id)=>dispatch(deleteTodo(id))
 });
 
-// const mapStateToProps = (state)=> {
 
-//  return {todos: state.todos}
-// };
 
 export default connect(null, mapDispatchToProps)(TodosList);

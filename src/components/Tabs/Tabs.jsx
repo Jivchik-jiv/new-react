@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Tabs.module.css'
 
 
@@ -9,36 +9,24 @@ const tabs = [
 ]
 
 
+const Tabs =()=>{
+    const [selectedTab, setSelectedTab]=useState(0);
 
-class Tabs extends React.PureComponent {
-state ={
-    selectedTabIndex: 2
-}
-
-// shouldComponentUpdate (prevProps, prevState) {
-//     return prevState.selectedTabIndex !== this.state.selectedTabIndex
-// }
-
-changeSelectedTab = (newId) => {
-    this.setState({selectedTabIndex: newId})
-}
-
-
-    render() { 
-
-        let activeTab = tabs[this.state.selectedTabIndex]
-
-        return <div className = {styles.tabs}>
-            <div>
-                {tabs.map(({id, title}, index)=>{
-                    return <button type = "button" onClick = {()=>this.changeSelectedTab(index)} key ={id}>{title}</button>
-                })}
-            </div>
-            <h2>{activeTab.title}</h2>
-            <p>{activeTab.content}</p>
-
-        </div>;
+    const changeSelectedTab = (newId)=>{
+        setSelectedTab(newId)
     }
+    const activeTab= tabs[selectedTab];
+
+    return  <div className = {styles.tabs}>
+    <div>
+        {tabs.map(({id, title}, index)=>{
+            return <button type = "button" onClick = {()=>changeSelectedTab(index)} key ={id}>{title}</button>
+        })}
+    </div>
+    <h2>{activeTab.title}</h2>
+    <p>{activeTab.content}</p>
+
+</div>;
 }
  
 export default Tabs;

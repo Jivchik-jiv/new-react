@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "./PhoneBook.module.css";
 import ContactsList from "./ContactsList";
 import ContactAdditor from "./ContactAdditor";
@@ -7,61 +7,63 @@ import Modal from "../common/Modal";
 import IconButton from "../common/Buttons/IconButton";
 import { ReactComponent as PlusIcon } from "../../Icons/plus.svg";
 import { connect } from "react-redux";
-import { addContact, changeFilter, deleteContact } from "../../redux/phonebook/phonebook-actions";
+import { changeFilter } from "../../redux/phonebook/phonebook-actions";
+import { selectFilter, selectFilteredContacts } from "../../redux/phonebook/phonebook-selectors";
+import { addContact, fetchContacts, deleteContact} from "../../redux/phonebook/phonebook-operations";
 
 
-class PhoneBook extends React.Component {
-  state = {
-    showModal: false,
-  };
-  
+const PhoneBook=({contacts,filter,addContact,deleteContact,changeFilter,fetchContacts})=>{
+
+    const [showModal, setShowModal]=useState(false);
+
+    const toggleModal = () => {
+    setShowModal(prevShowModal=>!prevShowModal)
+    };
+
+    const handleFilter=(e)=>{
+      changeFilter(e.target.value)
+    }
 
 
-  handleFilter =(e)=>{
-    this.props.changeFilter(e.target.value)
-  }
+    useEffect(()=>{
+      fetchContacts()
+    },[fetchContacts]);
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
-  };
+    let contactsNames= useMemo(()=>contacts.map(contact=>contact.name.toLowerCase()), [contacts]);
 
-  render() {
-    let contactsNames= this.props.contacts.map(contact=>contact.name.toLowerCase());
-    return (
-      <div className={styles.phonebook}>
-        <h1>Phonebook</h1>
-        <IconButton onClick={this.toggleModal} aria-label = "Add contact">
-          <PlusIcon height="40px" width="40px" style={{ color: "#fff" }} />
-        </IconButton>
-        {this.state.showModal && (
-          <Modal toggleModal={this.toggleModal}>
-            <ContactAdditor 
-            addContact={this.props.addContact} 
-            contactsNames = {contactsNames} 
-            toggleModal={this.toggleModal}/>
-          </Modal>
-        )}
-        <Filter changeFilter={this.handleFilter} filter={this.props.filter}/>
-        <ContactsList
-          contacts={this.props.contacts}
-          deleteContact={this.props.deleteContact}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className={styles.phonebook}>
+      <h1>Phonebook</h1>
+      <IconButton onClick={toggleModal} aria-label = "Add contact">
+        <PlusIcon height="40px" width="40px" style={{ color: "#fff" }} />
+      </IconButton>
+      {showModal && (
+        <Modal toggleModal={toggleModal}>
+          <ContactAdditor 
+          addContact={addContact} 
+          contactsNames = {contactsNames} 
+          toggleModal={toggleModal}/>
+        </Modal>
+      )}
+      <Filter changeFilter={handleFilter} filter={filter}/>
+      <ContactsList
+        contacts={contacts}
+        deleteContact={deleteContact}
+      />
+    </div>
+  );
 }
 
-const mapStateToProps= ({phonebook:{contacts, filter}})=>({
-  contacts:contacts.filter(contact=> contact.name.includes(filter)),
-  filter,
+const mapStateToProps= (state)=>({
+  contacts: selectFilteredContacts(state),
+  filter: selectFilter(state)
 })
 
 const mapDispatchToProps = (dispatch)=> ({
   addContact: (options)=>dispatch(addContact(options)),
   deleteContact: (id)=>dispatch(deleteContact(id)),
-  changeFilter: (value)=>dispatch(changeFilter(value))
+  changeFilter: (value)=>dispatch(changeFilter(value)),
+  fetchContacts: ()=> dispatch(fetchContacts())
 })
 
 

@@ -1,43 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './PhoneBook.module.css';
 
-class ContactAdditor extends React.Component {
 
-    state = {
-        name: "",
-        number: ""
-    }
+const ContactAdditor =({addContact, toggleModal,contactsNames})=>{
+    const [name, setName]=useState("");
 
-    handleChange = (e) => {
-        this.setState({[e.target.name]: e.target.value});
-    }
+    const handleNameChange=(e)=>{
+        setName(e.target.value)
+    };
 
-    handleSubmit = (e) => {
+    const [number, setNumber]=useState("");
+
+    const handleNumberChange=(e)=>{
+        setNumber(e.target.value)
+    };
+
+    const handleSubmit=(e)=>{
         e.preventDefault();
-        let isExists = this.props.contactsNames.includes(this.state.name.toLowerCase());
+        let isExists = contactsNames.includes(name.toLowerCase());
         if(!isExists){
-            this.props.addContact(this.state);
-            this.setState({name:"", number: ""});
-            this.props.toggleModal()
+            addContact(this.state);
+            setName("");
+            setNumber("");
+            toggleModal();
             return
         }
 
         alert("This contact already exists!")
         
-    }
+    };
 
 
-    render() { 
-        return <div className ={styles.additor}>
+    return <div className ={styles.additor}>
         <h3>New contact</h3>
-        <form onSubmit = {this.handleSubmit}>
+        <form onSubmit = {handleSubmit}>
         <label>
             <p>Name</p> 
         <input
              type="text"
              name="name"
-             onChange = {this.handleChange}
-             value={this.state.name}
+             onChange = {handleNameChange}
+             value={name}
              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
              title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
              required
@@ -48,8 +51,8 @@ class ContactAdditor extends React.Component {
         <input
             type="tel"
             name="number"
-            value={this.state.number}
-            onChange = {this.handleChange}
+            value={number}
+            onChange = {handleNumberChange}
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
             required
@@ -58,7 +61,6 @@ class ContactAdditor extends React.Component {
         <button className ={styles.btn}>Add contact</button>
     </form>
     </div>
-    }
 }
  
 export default ContactAdditor;

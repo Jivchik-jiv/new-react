@@ -14,6 +14,12 @@ const routes = {
     search: "/nasa/search",
     imageView: "/nasa/images/:imageDate",
   },
+  personalContacts: {
+    main: "/personal-contacts",
+    contacts: "/personal-contacts/contacts",
+    registration: "/personal-contacts/registration",
+    login: "/personal-contacts/login",
+  },
 };
 
 export default routes;
